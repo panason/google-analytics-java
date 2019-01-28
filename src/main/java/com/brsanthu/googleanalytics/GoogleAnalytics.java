@@ -1,13 +1,6 @@
 package com.brsanthu.googleanalytics;
 
-import com.brsanthu.googleanalytics.request.EventHit;
-import com.brsanthu.googleanalytics.request.ExceptionHit;
-import com.brsanthu.googleanalytics.request.ItemHit;
-import com.brsanthu.googleanalytics.request.PageViewHit;
-import com.brsanthu.googleanalytics.request.ScreenViewHit;
-import com.brsanthu.googleanalytics.request.SocialHit;
-import com.brsanthu.googleanalytics.request.TimingHit;
-import com.brsanthu.googleanalytics.request.TransactionHit;
+import com.brsanthu.googleanalytics.request.*;
 
 public interface GoogleAnalytics extends AutoCloseable {
 
@@ -16,6 +9,8 @@ public interface GoogleAnalytics extends AutoCloseable {
     ExceptionHit exception();
 
     ItemHit item();
+
+    ExtendedItemHit extendedItem();
 
     PageViewHit pageView();
 

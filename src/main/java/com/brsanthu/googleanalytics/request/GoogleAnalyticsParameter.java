@@ -13,17 +13,7 @@
  */
 package com.brsanthu.googleanalytics.request;
 
-import static com.brsanthu.googleanalytics.internal.Constants.HIT_EVENT;
-import static com.brsanthu.googleanalytics.internal.Constants.HIT_EXCEPTION;
-import static com.brsanthu.googleanalytics.internal.Constants.HIT_ITEM;
-import static com.brsanthu.googleanalytics.internal.Constants.HIT_SCREENVIEW;
-import static com.brsanthu.googleanalytics.internal.Constants.HIT_SOCIAL;
-import static com.brsanthu.googleanalytics.internal.Constants.HIT_TIMING;
-import static com.brsanthu.googleanalytics.internal.Constants.HIT_TXN;
-import static com.brsanthu.googleanalytics.internal.Constants.TYPE_BOOLEAN;
-import static com.brsanthu.googleanalytics.internal.Constants.TYPE_CURRENCY;
-import static com.brsanthu.googleanalytics.internal.Constants.TYPE_INTEGER;
-import static com.brsanthu.googleanalytics.internal.Constants.TYPE_TEXT;
+import static com.brsanthu.googleanalytics.internal.Constants.*;
 
 /**
  * Google Analytics Measurement Protocol Parameters.
@@ -115,6 +105,20 @@ public enum GoogleAnalyticsParameter {
     ITEM_CODE("ic", new String[] { HIT_ITEM }, 500),
     ITEM_CATEGORY("iv", new String[] { HIT_ITEM }, 500),
     CURRENCY_CODE("cu", new String[] { HIT_TXN, HIT_ITEM }, 10),
+
+    // Extended E-Commerce https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#enhanced-ecomm
+    EXTENDED_ITEM_CODE("pr<productIndex>id", new String[] { HIT_EXTENDED_ITEM }, 500),
+    EXTENDED_ITEM_NAME("pr<productIndex>nm", new String[] { HIT_EXTENDED_ITEM }, 500),
+    EXTENDED_ITEM_BRAND("pr<productIndex>br", new String[] { HIT_EXTENDED_ITEM }, 500),
+    EXTENDED_ITEM_CATEGORY("pr<productIndex>ca", new String[] { HIT_EXTENDED_ITEM }, 500),
+    EXTENDED_ITEM_KIND("pr<productIndex>va", new String[] { HIT_EXTENDED_ITEM }, 500),
+    EXTENDED_ITEM_PRICE("pr<productIndex>pr", false, TYPE_CURRENCY, new String[] { HIT_EXTENDED_ITEM }),
+    EXTENDED_ITEM_QUANTITY("pr<productIndex>qt", false, TYPE_INTEGER, new String[] { HIT_ITEM }),
+    EXTENDED_ITEM_COUPON_CODE("pr<productIndex>cc", new String[] { HIT_EXTENDED_ITEM }, 500),
+    EXTENDED_ITEM_INDEX("pr<productIndex>ps", false, TYPE_INTEGER, new String[] { HIT_ITEM }),
+    EXTENDED_ITEM_CUSTOM_DIMENSION("pr<productIndex>cd<dimensionIndex>", new String[] { HIT_EXTENDED_ITEM }, 500),
+    EXTENDED_ITEM_CUSTOM_METRIC("pr<productIndex>cm<metricIndex>", new String[] { HIT_EXTENDED_ITEM }, 500),
+
 
     // Social Interactions
     SOCIAL_NETWORK("sn", new String[] { HIT_SOCIAL }, 50),

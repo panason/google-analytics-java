@@ -77,6 +77,7 @@ public class GoogleAnalyticsRequest<T> {
     protected Map<GoogleAnalyticsParameter, String> parms = new HashMap<GoogleAnalyticsParameter, String>();
     protected Map<String, String> customDimensions = new HashMap<String, String>();
     protected Map<String, String> customMetrics = new HashMap<String, String>();
+    protected Map<String, String> extendedCommerceParams = new HashMap<String, String>();
 
     protected GoogleAnalyticsExecutor delegateExecutor = null;
 
@@ -310,6 +311,10 @@ public class GoogleAnalyticsRequest<T> {
 
     public Map<String, String> custommMetrics() {
         return customMetrics;
+    }
+
+    public Map<String, String> extendedCommerceParams() {
+        return extendedCommerceParams;
     }
 
     @Override

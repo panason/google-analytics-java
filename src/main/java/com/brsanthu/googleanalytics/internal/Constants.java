@@ -5,6 +5,7 @@ public interface Constants {
     String HIT_PAGEVIEW = "pageview";
     String HIT_EVENT = "event";
     String HIT_ITEM = "item";
+    String HIT_EXTENDED_ITEM = "extendeditem";
     String HIT_TXN = "transaction";
     String HIT_SOCIAL = "social";
     String HIT_TIMING = "timing";
