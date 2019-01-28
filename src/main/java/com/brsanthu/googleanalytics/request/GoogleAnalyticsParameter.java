@@ -107,6 +107,7 @@ public enum GoogleAnalyticsParameter {
     CURRENCY_CODE("cu", new String[] { HIT_TXN, HIT_ITEM }, 10),
 
     // Extended E-Commerce https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#enhanced-ecomm
+    EXTENDED_ITEM_ACTION("pa", new String[] { HIT_EXTENDED_ITEM }, 500),
     EXTENDED_ITEM_CODE("pr<productIndex>id", new String[] { HIT_EXTENDED_ITEM }, 500),
     EXTENDED_ITEM_NAME("pr<productIndex>nm", new String[] { HIT_EXTENDED_ITEM }, 500),
     EXTENDED_ITEM_BRAND("pr<productIndex>br", new String[] { HIT_EXTENDED_ITEM }, 500),

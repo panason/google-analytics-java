@@ -30,6 +30,17 @@ public class ExtendedItemHit extends GoogleAnalyticsRequest<ExtendedItemHit> {
         super(HIT_EXTENDED_ITEM);
     }
 
+
+    public ExtendedItemHit extendedItemAction(String value) {
+        setString(EXTENDED_ITEM_ACTION, value);
+        return this;
+    }
+
+    public String extendedItemAction() {
+        return getString(EXTENDED_ITEM_ACTION);
+    }
+
+
     public ExtendedItemHit extendedItemCode(int index, String value) {
         setIndexString(index, EXTENDED_ITEM_CODE, value);
         return this;
