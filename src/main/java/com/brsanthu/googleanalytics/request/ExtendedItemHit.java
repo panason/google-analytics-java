@@ -98,12 +98,12 @@ public class ExtendedItemHit extends GoogleAnalyticsRequest<ExtendedItemHit> {
 
 
     public ExtendedItemHit extendedItemQuantity(int index, Integer value) {
-        setInteger(EXTENDED_ITEM_QUANTITY, value);
+        setIndexInteger(index,EXTENDED_ITEM_QUANTITY, value);
         return this;
     }
 
     public Integer extendedItemQuantity(int index) {
-        return getInteger(EXTENDED_ITEM_QUANTITY);
+        return getIndexInteger(index,EXTENDED_ITEM_QUANTITY);
     }
 
 
