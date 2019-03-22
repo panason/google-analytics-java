@@ -119,6 +119,7 @@ public enum GoogleAnalyticsParameter {
     EXTENDED_ITEM_INDEX("pr<productIndex>ps", false, TYPE_INTEGER, new String[] { HIT_ITEM }),
     EXTENDED_ITEM_CUSTOM_DIMENSION("pr<productIndex>cd<dimensionIndex>", new String[] { HIT_EXTENDED_ITEM }, 500),
     EXTENDED_ITEM_CUSTOM_METRIC("pr<productIndex>cm<metricIndex>", new String[] { HIT_EXTENDED_ITEM }, 500),
+    EXTENDED_ITEM_ORDER_COUPON_CODE("tcc", new String[] {HIT_EXTENDED_ITEM}),
 
 
     // Social Interactions
