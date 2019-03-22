@@ -149,6 +149,17 @@ public class ExtendedItemHit extends GoogleAnalyticsRequest<ExtendedItemHit> {
     }
 
 
+    public ExtendedItemHit extendedItemOrderCouponCode(String value) {
+        setString(EXTENDED_ITEM_ORDER_COUPON_CODE, value);
+        return this;
+    }
+
+
+    public String extendedItemOrderCouponCode() {
+        return getString(EXTENDED_ITEM_ORDER_COUPON_CODE);
+    }
+
+
     protected ExtendedItemHit setIndexString(int index, GoogleAnalyticsParameter parameter, String value) {
         String key = getIndexKey(index, parameter);
         return putParam(key,value);
