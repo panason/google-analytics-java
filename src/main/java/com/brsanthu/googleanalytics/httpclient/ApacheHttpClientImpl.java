@@ -1,20 +1,13 @@
 package com.brsanthu.googleanalytics.httpclient;
 
-import static com.brsanthu.googleanalytics.internal.GaUtils.isNotEmpty;
-
-import java.io.IOException;
-import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.brsanthu.googleanalytics.GoogleAnalyticsConfig;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -28,7 +21,14 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.brsanthu.googleanalytics.GoogleAnalyticsConfig;
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.brsanthu.googleanalytics.internal.GaUtils.isNotEmpty;
 
 public class ApacheHttpClientImpl implements HttpClient {
     private static final Logger logger = LoggerFactory.getLogger(ApacheHttpClientImpl.class);
@@ -52,6 +52,7 @@ public class ApacheHttpClientImpl implements HttpClient {
         PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager();
         connManager.setDefaultMaxPerRoute(Math.max(config.getMaxHttpConnectionsPerRoute(), 1));
 
+
         HttpClientBuilder builder = HttpClients.custom().setConnectionManager(connManager);
 
         if (isNotEmpty(config.getUserAgent())) {
@@ -68,6 +69,15 @@ public class ApacheHttpClientImpl implements HttpClient {
                 builder.setDefaultCredentialsProvider(credentialsProvider);
             }
         }
+
+        RequestConfig rc = RequestConfig.custom()
+                .setConnectionRequestTimeout(config.getClientTimeout() * 1000)
+                .setConnectTimeout(config.getClientTimeout() * 1000)
+                .setSocketTimeout(config.getClientTimeout() * 1000)
+                .build();
+        builder.setDefaultRequestConfig(rc);
+
+
 
         return builder.build();
     }

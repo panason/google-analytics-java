@@ -51,6 +51,7 @@ public class GoogleAnalyticsConfig {
     private String proxyPassword = null;
     private boolean discoverRequestParameters = true;
     private boolean gatherStats = false;
+    private int clientTimeout=60;
     private RequestParameterDiscoverer requestParameterDiscoverer = new DefaultRequestParameterDiscoverer();
 
     public RequestParameterDiscoverer getRequestParameterDiscoverer() {
@@ -404,4 +405,12 @@ public class GoogleAnalyticsConfig {
         return this;
     }
 
+    public int getClientTimeout() {
+        return clientTimeout;
+    }
+
+    public GoogleAnalyticsConfig setClientTimeout(int clientTimeout) {
+        this.clientTimeout = clientTimeout;
+        return this;
+    }
 }
