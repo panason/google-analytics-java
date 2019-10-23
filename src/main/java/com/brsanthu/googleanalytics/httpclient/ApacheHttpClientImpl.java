@@ -139,7 +139,11 @@ public class ApacheHttpClientImpl implements HttpClient {
         try {
             List<List<NameValuePair>> listOfReqPairs = req.getRequests().stream().map(this::createNameValuePairs).collect(Collectors.toList());
             httpResp = execute(req.getUrl(), new BatchUrlEncodedFormEntity(listOfReqPairs));
-            resp.setStatusCode(httpResp.getStatusLine().getStatusCode());
+            if(httpResp!=null){
+            resp.setStatusCode(httpResp.getStatusLine().getStatusCode());}else{
+                logger.warn("httpResp is null set 500 status code.");
+                resp.setStatusCode(500);
+            }
 
         } catch (Exception e) {
             if (e instanceof UnknownHostException) {
@@ -149,12 +153,13 @@ public class ApacheHttpClientImpl implements HttpClient {
             }
 
         } finally {
+            if(httpResp!=null){
             EntityUtils.consumeQuietly(httpResp.getEntity());
             try {
                 httpResp.close();
             } catch (Exception e2) {
                 // ignore
-            }
+            }}
         }
 
         return resp;
