@@ -78,7 +78,6 @@ public class ApacheHttpClientImpl implements HttpClient {
         builder.setDefaultRequestConfig(rc);
 
 
-
         return builder.build();
     }
 
@@ -110,14 +109,19 @@ public class ApacheHttpClientImpl implements HttpClient {
         try {
 
             httpResp = execute(req.getUrl(), new UrlEncodedFormEntity(createNameValuePairs(req), StandardCharsets.UTF_8));
-            resp.setStatusCode(httpResp.getStatusLine().getStatusCode());
+            if(httpResp!=null){
+            resp.setStatusCode(httpResp.getStatusLine().getStatusCode());}else{
+                throw new RuntimeException("Response is null");
+            }
 
         } catch (Exception e) {
+            resp.setStatusCode(500);
             if (e instanceof UnknownHostException) {
                 logger.warn("Couldn't connect to Google Analytics. Internet may not be available. " + e.toString());
             } else {
                 logger.warn("Exception while sending the Google Analytics tracker request " + req, e);
             }
+            throw new RuntimeException(e);
 
         } finally {
             EntityUtils.consumeQuietly(httpResp.getEntity());
@@ -139,10 +143,12 @@ public class ApacheHttpClientImpl implements HttpClient {
         try {
             List<List<NameValuePair>> listOfReqPairs = req.getRequests().stream().map(this::createNameValuePairs).collect(Collectors.toList());
             httpResp = execute(req.getUrl(), new BatchUrlEncodedFormEntity(listOfReqPairs));
-            if(httpResp!=null){
-            resp.setStatusCode(httpResp.getStatusLine().getStatusCode());}else{
+            if (httpResp != null) {
+                resp.setStatusCode(httpResp.getStatusLine().getStatusCode());
+            } else {
                 logger.warn("httpResp is null set 500 status code.");
                 resp.setStatusCode(500);
+                throw new RuntimeException("httpResp is null set 500 status code.");
             }
 
         } catch (Exception e) {
@@ -151,15 +157,16 @@ public class ApacheHttpClientImpl implements HttpClient {
             } else {
                 logger.warn("Exception while sending the Google Analytics tracker request " + req, e);
             }
-
+            throw new RuntimeException(e);
         } finally {
-            if(httpResp!=null){
-            EntityUtils.consumeQuietly(httpResp.getEntity());
-            try {
-                httpResp.close();
-            } catch (Exception e2) {
-                // ignore
-            }}
+            if (httpResp != null) {
+                EntityUtils.consumeQuietly(httpResp.getEntity());
+                try {
+                    httpResp.close();
+                } catch (Exception e2) {
+                    // ignore
+                }
+            }
         }
 
         return resp;

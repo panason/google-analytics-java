@@ -96,6 +96,7 @@ public class GoogleAnalyticsImpl implements GoogleAnalytics, GoogleAnalyticsExec
 
         } catch (Exception e) {
             logger.warn("Exception while sending the Google Analytics tracker request " + gaReq, e);
+            response.setStatusCode(500);
         }
 
         return response;
